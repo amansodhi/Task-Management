@@ -84,7 +84,7 @@
 
     <div class="w-full flex flex-col h-screen overflow-y-hidden">
         {{-- Account Details --}}
-        <header class="w-full items-center bg-blue py-2 px-6 sm:flex">
+        <header class=" w-full items-center bg-blue py-2 px-6 sm:flex">
             <div class=" row w-1/2"> </div>
             @auth
                 <div x-data="{ isOpen: false }" class="relative w-1/2 flex justify-end">
@@ -115,7 +115,7 @@
 
         @if (session()->has('success'))
             <div x-data="{ show:true}" x-show="show" x-init="setTimeout(() => show = false, 4000)"
-                class=" fixed top left 500 text-white py-2 px-4 w-1/4 rounded-xl text-sm">
+                class=" fixed top left 500 text-black py-2 px-4 w-1/4 rounded-xl text-sm">
                 <p>{{ session('success') }}</p>
             </div>
         @endif

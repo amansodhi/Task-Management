@@ -71,7 +71,7 @@ class TaskController extends Controller
                 $attributes['slug'] = Str::slug($request->title);
                 $task = Task::create($attributes);
 
-        $this->notifyUser($task->assigned_user_id);
+        $this->notifyUser($task->id);
 
         return redirect('/')->with('success', 'Task updated and assigned user notified by email');}
     
@@ -125,7 +125,7 @@ class TaskController extends Controller
             $attributes['slug'] = Str::slug($request->title);
             $task->save($attributes);
 
-            $this->notifyUser($task->assigned_user_id);
+            $this->notifyUser($task->id);
 
         return redirect('/task')->with('success', 'Task updated and assigned user notified by email');
         }
@@ -174,10 +174,10 @@ class TaskController extends Controller
         return redirect('/task')->with('success', 'Task marked completed');
     }
 
-    public function notifyUser($assignedUserId)
+    public function notifyUser($taskId)
     {
-        $task = Task::where('assigned_user_id',$assignedUserId)->first();
-        $user = User::where('id', $assignedUserId)->first();
+        $task = Task::where('id',$taskId)->first();
+        $user = User::where('id', $task->assigned_user_id)->first();
         $user->notify(new TaskAssigned($task));
 
         return back()->with('success', 'Task notification email has been sent to the assigned user');
